@@ -1,7 +1,7 @@
 # InstaKilo
 
 - [x] Create image class (location, subject)
-- [ ] Create image holder class (return arrays)
+- [x] Create image holder class (return arrays)
 - [ ] UICollectionViewController
 - [ ] UICollectionViewCell
 - [ ] Group by subject
