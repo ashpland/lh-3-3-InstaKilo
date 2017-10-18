@@ -13,6 +13,8 @@
 		4966328A1F9809EC00AD11A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 496632891F9809EC00AD11A2 /* Assets.xcassets */; };
 		4966328D1F9809EC00AD11A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4966328B1F9809EC00AD11A2 /* LaunchScreen.storyboard */; };
 		496632901F9809EC00AD11A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966328F1F9809EC00AD11A2 /* main.m */; };
+		496632981F980BEA00AD11A2 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 496632971F980BEA00AD11A2 /* Photo.m */; };
+		4966329B1F980F8500AD11A2 /* PhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966329A1F980F8500AD11A2 /* PhotoManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		4966328C1F9809EC00AD11A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4966328E1F9809EC00AD11A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4966328F1F9809EC00AD11A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		496632961F980BEA00AD11A2 /* Photo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		496632971F980BEA00AD11A2 /* Photo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		496632991F980F8500AD11A2 /* PhotoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoManager.h; sourceTree = "<group>"; };
+		4966329A1F980F8500AD11A2 /* PhotoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,10 @@
 				496632831F9809EC00AD11A2 /* ViewController.h */,
 				496632841F9809EC00AD11A2 /* ViewController.m */,
 				496632861F9809EC00AD11A2 /* Main.storyboard */,
+				496632961F980BEA00AD11A2 /* Photo.h */,
+				496632971F980BEA00AD11A2 /* Photo.m */,
+				496632991F980F8500AD11A2 /* PhotoManager.h */,
+				4966329A1F980F8500AD11A2 /* PhotoManager.m */,
 				496632891F9809EC00AD11A2 /* Assets.xcassets */,
 				4966328B1F9809EC00AD11A2 /* LaunchScreen.storyboard */,
 				4966328E1F9809EC00AD11A2 /* Info.plist */,
@@ -142,7 +152,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				496632981F980BEA00AD11A2 /* Photo.m in Sources */,
 				496632851F9809EC00AD11A2 /* ViewController.m in Sources */,
+				4966329B1F980F8500AD11A2 /* PhotoManager.m in Sources */,
 				496632901F9809EC00AD11A2 /* main.m in Sources */,
 				496632821F9809EC00AD11A2 /* AppDelegate.m in Sources */,
 			);
