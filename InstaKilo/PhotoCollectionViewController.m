@@ -18,6 +18,7 @@
 @property (nonatomic, strong) PhotoManager *photoManager;
 @property (nonatomic, strong) UICollectionViewFlowLayout *defaultLayout;
 @property (nonatomic, assign) PhotoSortOptions currentPhotoSort;
+- (IBAction)photoSortChanged:(UISegmentedControl *)sender;
 
 @end
 
@@ -31,7 +32,7 @@ static NSString * const reuseIdentifier = @"PhotoCell";
     self.photoManager = [PhotoManager new];
     [self.photoManager addAquariumPhotos];
     
-    self.currentPhotoSort = Category;
+    self.currentPhotoSort = Default;
     
     
     [self setupLayout];
@@ -50,10 +51,12 @@ static NSString * const reuseIdentifier = @"PhotoCell";
     self.defaultLayout.minimumInteritemSpacing = margin;
     self.defaultLayout.minimumLineSpacing = margin * 2;
    
-    self.defaultLayout.headerReferenceSize = CGSizeMake(self.view.frame.size.width, width / 2);
+    self.defaultLayout.headerReferenceSize = CGSizeMake(self.view.frame.size.width, width / 4);
 
     self.defaultLayout.sectionHeadersPinToVisibleBounds = YES;
-
+    
+    self.defaultLayout.sectionInset = UIEdgeInsetsMake(0, 0, width / 2, 0);
+    
 }
 
 //
@@ -153,7 +156,7 @@ static NSString * const reuseIdentifier = @"PhotoCell";
         
         switch (self.currentPhotoSort) {
             case Default:
-                return nil;
+                sectionTitle = @"All Photos";
                 break;
             case Location: {
                 
@@ -211,4 +214,8 @@ static NSString * const reuseIdentifier = @"PhotoCell";
 
 
 
+- (IBAction)photoSortChanged:(UISegmentedControl *)sender {
+    self.currentPhotoSort = sender.selectedSegmentIndex;
+    [self.collectionView reloadData];
+}
 @end

@@ -4,5 +4,6 @@
 - [x] Create image holder class (return arrays)
 - [x] UICollectionViewController
 - [x] UICollectionViewCell
-- [ ] Group by subject
-- [ ] Group by location or subject
+- [x] Group by subject
+- [x] Group by location or subject
+- [ ] Switch between groupings
