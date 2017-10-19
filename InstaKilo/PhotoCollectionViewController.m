@@ -9,11 +9,15 @@
 #import "PhotoCollectionViewController.h"
 #import "PhotoManager.h"
 #import "PhotoCollectionViewCell.h"
+#import "HeaderCollectionReusableView.h"
+
+
 
 @interface PhotoCollectionViewController ()
 
 @property (nonatomic, strong) PhotoManager *photoManager;
 @property (nonatomic, strong) UICollectionViewFlowLayout *defaultLayout;
+@property (nonatomic, assign) PhotoSortOptions currentPhotoSort;
 
 @end
 
@@ -24,39 +28,31 @@ static NSString * const reuseIdentifier = @"PhotoCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
-//    [self.collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    // Do any additional setup after loading the view.
-    
     self.photoManager = [PhotoManager new];
     [self.photoManager addAquariumPhotos];
+    
+    self.currentPhotoSort = Category;
+    
     
     [self setupLayout];
     self.collectionView.collectionViewLayout = self.defaultLayout;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 - (void)setupLayout
 {
     self.defaultLayout = [UICollectionViewFlowLayout new];
     
     CGFloat margin = 0;
-    NSInteger imagesPerRow = 4;
+    NSInteger imagesPerRow = 3;
     CGFloat width = (self.view.frame.size.width / imagesPerRow) - 2 * margin;
     
     self.defaultLayout.itemSize = CGSizeMake(width, width);
     self.defaultLayout.minimumInteritemSpacing = margin;
     self.defaultLayout.minimumLineSpacing = margin * 2;
    
+    self.defaultLayout.headerReferenceSize = CGSizeMake(self.view.frame.size.width, width / 2);
+
+    self.defaultLayout.sectionHeadersPinToVisibleBounds = YES;
 
 }
 
@@ -97,65 +93,122 @@ static NSString * const reuseIdentifier = @"PhotoCell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    switch (self.currentPhotoSort) {
+        case Default:
+            return 1;
+        case Location:
+            return [self.photoManager numberOfLocations];
+        case Category:
+            return [self.photoManager numberOfCategories];
+    }
 }
 
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.photoManager.photosArray.count;
+    switch (self.currentPhotoSort) {
+        case Default:
+            return self.photoManager.photosArray.count;
+        case Location:
+            return [self.photoManager getPhotosForLocation:section].count;
+        case Category:
+            return [self.photoManager getPhotosForCategory:section].count;
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    cell.cellImageView.image = self.photoManager.photosArray[indexPath.row].image;
+    UIImage *imageToAdd;
+    
+    switch (self.currentPhotoSort) {
+        case Default:
+            imageToAdd = self.photoManager.photosArray[indexPath.row].image;
+            break;
+        case Location:
+            imageToAdd = [[self.photoManager getPhotosForLocation:indexPath.section] objectAtIndex:indexPath.row].image;
+            break;
+        case Category:
+            imageToAdd = [[self.photoManager getPhotosForCategory:indexPath.section] objectAtIndex:indexPath.row].image;
+            break;
+    }
+    
+    cell.cellImageView.image = imageToAdd;
     
     return cell;
 }
 
 
-//- (void)temp
-//{
-//
-//                                                                                forIndexPath:indexPath];
-//    NSString *labelText = [NSString stringWithFormat:@"%ld-%ld", (long)indexPath.section, (long)indexPath.row];
-//    cell.label.text = labelText;
-//
-//    return cell;
-//}
-
-
-
-#pragma mark <UICollectionViewDelegate>
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
+           viewForSupplementaryElementOfKind:(NSString *)kind
+                                 atIndexPath:(NSIndexPath *)indexPath
+{
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        HeaderCollectionReusableView *headerView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                                           withReuseIdentifier:@"MyHeaderView"
+                                                                                  forIndexPath:indexPath];
+        
+        
+        NSString *sectionTitle;
+        
+        switch (self.currentPhotoSort) {
+            case Default:
+                return nil;
+                break;
+            case Location: {
+                
+                PhotoLocations location = indexPath.section;
+                switch (location) {
+                  
+                    case Inside:
+                        sectionTitle = @"Inside";
+                        break;
+                    case Outside:
+                        sectionTitle = @"Outside";
+                        break;
+                }
+                break;
+            }
+            case Category: {
+                PhotoCategories category = indexPath.section;
+                switch (category) {
+                    
+                    case Fish:
+                        sectionTitle = @"Fish";
+                        break;
+                    case Mammals:
+                        sectionTitle = @"Mammals";
+                        break;
+                    case Birds:
+                        sectionTitle = @"Birds";
+                        break;
+                    case Amphibians:
+                        sectionTitle = @"Amphibians";
+                        break;
+                    case Reptiles:
+                        sectionTitle = @"Reptiles";
+                        break;
+                    case Invertebrates:
+                        sectionTitle = @"Invertebrates";
+                        break;
+                    case Art:
+                        sectionTitle = @"Art";
+                        break;
+                }
+                break;
+            }
+        }
+        
+        headerView.headerLabel.text = sectionTitle;
+        return headerView;
+    }
+    
+    else {
+        return nil;
+    }
 }
-*/
 
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
 
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
 
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end

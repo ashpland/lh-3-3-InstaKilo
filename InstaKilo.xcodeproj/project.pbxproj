@@ -16,6 +16,7 @@
 		4966329B1F980F8500AD11A2 /* PhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966329A1F980F8500AD11A2 /* PhotoManager.m */; };
 		4966329E1F98200600AD11A2 /* PhotoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966329D1F98200600AD11A2 /* PhotoCollectionViewController.m */; };
 		496632A11F98243E00AD11A2 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 496632A01F98243E00AD11A2 /* PhotoCollectionViewCell.m */; };
+		496632A61F98437400AD11A2 /* HeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496632A51F98437400AD11A2 /* HeaderCollectionReusableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		4966329D1F98200600AD11A2 /* PhotoCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewController.m; sourceTree = "<group>"; };
 		4966329F1F98243E00AD11A2 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		496632A01F98243E00AD11A2 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		496632A41F98437400AD11A2 /* HeaderCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderCollectionReusableView.h; sourceTree = "<group>"; };
+		496632A51F98437400AD11A2 /* HeaderCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderCollectionReusableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +73,8 @@
 				496632801F9809EC00AD11A2 /* AppDelegate.h */,
 				496632811F9809EC00AD11A2 /* AppDelegate.m */,
 				496632861F9809EC00AD11A2 /* Main.storyboard */,
+				496632A41F98437400AD11A2 /* HeaderCollectionReusableView.h */,
+				496632A51F98437400AD11A2 /* HeaderCollectionReusableView.m */,
 				4966329F1F98243E00AD11A2 /* PhotoCollectionViewCell.h */,
 				496632A01F98243E00AD11A2 /* PhotoCollectionViewCell.m */,
 				4966329C1F98200600AD11A2 /* PhotoCollectionViewController.h */,
@@ -158,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				496632981F980BEA00AD11A2 /* Photo.m in Sources */,
+				496632A61F98437400AD11A2 /* HeaderCollectionReusableView.m in Sources */,
 				496632A11F98243E00AD11A2 /* PhotoCollectionViewCell.m in Sources */,
 				4966329B1F980F8500AD11A2 /* PhotoManager.m in Sources */,
 				4966329E1F98200600AD11A2 /* PhotoCollectionViewController.m in Sources */,

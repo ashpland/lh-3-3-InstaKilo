@@ -21,6 +21,8 @@
     self = [super init];
     if (self) {
         _internalPhotosArray = [NSMutableArray new];
+        _numberOfLocations = 2;
+        _numberOfCategories = 6;
     }
     return self;
 }
@@ -37,12 +39,27 @@
         [self addPhotoWithID:uniqueID];
     }
     
-    NSArray<NSNumber *> *indoorPhotos = @[@1, @2, @3];
+    NSArray<NSNumber *> *outsidePhotos = @[@15, @20, @21, @22, @23, @24, @25, @26, @27, @28, @29, @30, @31, @0];
     
-    [self addLocation:Inside toPhotos:indoorPhotos];
+    [self addLocation:Outside toPhotos:outsidePhotos];
     
-    NSLog(@"%@", [self getPhotosForLocation:Inside]);
+    NSArray<NSNumber *> *mammals = @[@15, @20, @21, @22, @23, @24, @25, @26, @27, @31, @37, @38];
+    NSArray<NSNumber *> *birds = @[@28, @29, @30];
+    NSArray<NSNumber *> *amphibians = @[@1];
+    NSArray<NSNumber *> *reptiles = @[@34];
+    NSArray<NSNumber *> *invertebrates = @[@5, @8, @11, @12, @13, @14, @35, @36];
+    NSArray<NSNumber *> *art = @[@0];
+
+    [self addCategory:Mammals toPhotos:mammals];
+    [self addCategory:Birds toPhotos:birds];
+    [self addCategory:Amphibians toPhotos:amphibians];
+    [self addCategory:Reptiles toPhotos:reptiles];
+    [self addCategory:Invertebrates toPhotos:invertebrates];
+    [self addCategory:Art toPhotos:art];
+
 }
+
+
 
 -(void)addLocation:(PhotoLocations)location toPhotos:(NSArray<NSNumber *> *)list
 {

@@ -12,6 +12,9 @@
 @interface PhotoManager : NSObject
 
 @property (nonatomic, strong, readonly) NSArray<Photo *> *photosArray;
+@property (nonatomic, assign) NSUInteger numberOfCategories;
+@property (nonatomic, assign) NSUInteger numberOfLocations;
+
 
 - (NSArray<Photo *> *)getPhotosForLocation:(PhotoLocations)location;
 - (NSArray<Photo *> *)getPhotosForCategory:(PhotoCategories)category;

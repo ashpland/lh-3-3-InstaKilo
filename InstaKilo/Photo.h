@@ -10,16 +10,16 @@
 @import UIKit;
 
 typedef NS_ENUM(NSUInteger, PhotoCategories) {
-    NoCategory,
     Fish,
     Mammals,
     Birds,
     Amphibians,
+    Reptiles,
     Invertebrates,
+    Art,
 };
 
 typedef NS_ENUM(NSUInteger, PhotoLocations) {
-    NoLocation,
     Inside,
     Outside,
 };
