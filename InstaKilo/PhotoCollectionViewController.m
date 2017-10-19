@@ -59,42 +59,6 @@ static NSString * const reuseIdentifier = @"PhotoCell";
     
 }
 
-//
-//
-//self.simpleLayout = [[UICollectionViewFlowLayout alloc] init];
-//
-//self.simpleLayout.itemSize = CGSizeMake(100, 100); // Set size of cell
-//self.simpleLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);  // "Border around each section"
-//self.simpleLayout.minimumInteritemSpacing = 15;  // Minimum horizontal spacing between cells
-//self.simpleLayout.minimumLineSpacing = 10;  // Minimum vertical spacing
-//
-////    // Add this line so headers will appear. If this line is not present, headers will not appear
-////    self.simpleLayout.headerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 50);
-//
-//// By default, direction is vertical
-//self.simpleLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-//
-//// Add this line so headers will appear. If this line is not present, headers will not appear
-//self.simpleLayout.headerReferenceSize = CGSizeMake(50, self.collectionView.frame.size.height);
-//
-//// Add this line so footers will appear. If this line is not present, footers will not appear
-//self.simpleLayout.footerReferenceSize = CGSizeMake(30, self.collectionView.frame.size.height);
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-#pragma mark <UICollectionViewDataSource>
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     switch (self.currentPhotoSort) {
         case Default:
@@ -105,8 +69,6 @@ static NSString * const reuseIdentifier = @"PhotoCell";
             return [self.photoManager numberOfCategories];
     }
 }
-
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     switch (self.currentPhotoSort) {
