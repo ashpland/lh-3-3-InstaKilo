@@ -13,6 +13,7 @@
 @interface PhotoCollectionViewController ()
 
 @property (nonatomic, strong) PhotoManager *photoManager;
+@property (nonatomic, strong) UICollectionViewFlowLayout *defaultLayout;
 
 @end
 
@@ -33,12 +34,55 @@ static NSString * const reuseIdentifier = @"PhotoCell";
     
     self.photoManager = [PhotoManager new];
     [self.photoManager addAquariumPhotos];
+    
+    [self setupLayout];
+    self.collectionView.collectionViewLayout = self.defaultLayout;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (void)setupLayout
+{
+    self.defaultLayout = [UICollectionViewFlowLayout new];
+    
+    CGFloat margin = 0;
+    NSInteger imagesPerRow = 4;
+    CGFloat width = (self.view.frame.size.width / imagesPerRow) - 2 * margin;
+    
+    self.defaultLayout.itemSize = CGSizeMake(width, width);
+    self.defaultLayout.minimumInteritemSpacing = margin;
+    self.defaultLayout.minimumLineSpacing = margin * 2;
+   
+
+}
+
+//
+//
+//self.simpleLayout = [[UICollectionViewFlowLayout alloc] init];
+//
+//self.simpleLayout.itemSize = CGSizeMake(100, 100); // Set size of cell
+//self.simpleLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);  // "Border around each section"
+//self.simpleLayout.minimumInteritemSpacing = 15;  // Minimum horizontal spacing between cells
+//self.simpleLayout.minimumLineSpacing = 10;  // Minimum vertical spacing
+//
+////    // Add this line so headers will appear. If this line is not present, headers will not appear
+////    self.simpleLayout.headerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 50);
+//
+//// By default, direction is vertical
+//self.simpleLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//
+//// Add this line so headers will appear. If this line is not present, headers will not appear
+//self.simpleLayout.headerReferenceSize = CGSizeMake(50, self.collectionView.frame.size.height);
+//
+//// Add this line so footers will appear. If this line is not present, footers will not appear
+//self.simpleLayout.footerReferenceSize = CGSizeMake(30, self.collectionView.frame.size.height);
+
+
+
 
 /*
 #pragma mark - Navigation
@@ -64,10 +108,6 @@ static NSString * const reuseIdentifier = @"PhotoCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-
-    cell.backgroundColor = [UIColor greenColor];
-    
-    UIImage *theImage = self.photoManager.photosArray[indexPath.row].image;
     
     cell.cellImageView.image = self.photoManager.photosArray[indexPath.row].image;
     

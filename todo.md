@@ -2,7 +2,7 @@
 
 - [x] Create image class (location, subject)
 - [x] Create image holder class (return arrays)
-- [ ] UICollectionViewController
-- [ ] UICollectionViewCell
+- [x] UICollectionViewController
+- [x] UICollectionViewCell
 - [ ] Group by subject
 - [ ] Group by location or subject
