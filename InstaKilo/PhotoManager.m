@@ -10,7 +10,7 @@
 
 @interface PhotoManager ()
 
-@property (nonatomic, strong) NSMutableArray *photosArray;
+@property (nonatomic, strong) NSMutableArray<Photo *> *internalPhotosArray;
 
 @end
 
@@ -20,7 +20,7 @@
 {
     self = [super init];
     if (self) {
-        _photosArray = [NSMutableArray new];
+        _internalPhotosArray = [NSMutableArray new];
     }
     return self;
 }
@@ -28,7 +28,7 @@
 - (void)addPhotoWithID:(NSUInteger)uniqueID
 {
     Photo *newPhoto = [[Photo alloc] initWithID:uniqueID];
-    [self.photosArray addObject:newPhoto];
+    [self.internalPhotosArray addObject:newPhoto];
 }
 
 -(void)addAquariumPhotos
@@ -38,5 +38,9 @@
     }
 }
 
+-(NSArray<Photo *> *)photosArray
+{
+    return self.internalPhotosArray;
+}
 
 @end

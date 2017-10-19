@@ -11,6 +11,8 @@
 
 @interface PhotoManager : NSObject
 
+@property (nonatomic, strong, readonly) NSArray<Photo *> *photosArray;
+
 - (void)addAquariumPhotos;
 
 @end

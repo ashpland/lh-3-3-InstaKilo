@@ -14,6 +14,8 @@
 		496632901F9809EC00AD11A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966328F1F9809EC00AD11A2 /* main.m */; };
 		496632981F980BEA00AD11A2 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 496632971F980BEA00AD11A2 /* Photo.m */; };
 		4966329B1F980F8500AD11A2 /* PhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966329A1F980F8500AD11A2 /* PhotoManager.m */; };
+		4966329E1F98200600AD11A2 /* PhotoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966329D1F98200600AD11A2 /* PhotoCollectionViewController.m */; };
+		496632A11F98243E00AD11A2 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 496632A01F98243E00AD11A2 /* PhotoCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,10 @@
 		496632971F980BEA00AD11A2 /* Photo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		496632991F980F8500AD11A2 /* PhotoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoManager.h; sourceTree = "<group>"; };
 		4966329A1F980F8500AD11A2 /* PhotoManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoManager.m; sourceTree = "<group>"; };
+		4966329C1F98200600AD11A2 /* PhotoCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewController.h; sourceTree = "<group>"; };
+		4966329D1F98200600AD11A2 /* PhotoCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewController.m; sourceTree = "<group>"; };
+		4966329F1F98243E00AD11A2 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		496632A01F98243E00AD11A2 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,10 @@
 				496632801F9809EC00AD11A2 /* AppDelegate.h */,
 				496632811F9809EC00AD11A2 /* AppDelegate.m */,
 				496632861F9809EC00AD11A2 /* Main.storyboard */,
+				4966329F1F98243E00AD11A2 /* PhotoCollectionViewCell.h */,
+				496632A01F98243E00AD11A2 /* PhotoCollectionViewCell.m */,
+				4966329C1F98200600AD11A2 /* PhotoCollectionViewController.h */,
+				4966329D1F98200600AD11A2 /* PhotoCollectionViewController.m */,
 				496632961F980BEA00AD11A2 /* Photo.h */,
 				496632971F980BEA00AD11A2 /* Photo.m */,
 				496632991F980F8500AD11A2 /* PhotoManager.h */,
@@ -148,7 +158,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				496632981F980BEA00AD11A2 /* Photo.m in Sources */,
+				496632A11F98243E00AD11A2 /* PhotoCollectionViewCell.m in Sources */,
 				4966329B1F980F8500AD11A2 /* PhotoManager.m in Sources */,
+				4966329E1F98200600AD11A2 /* PhotoCollectionViewController.m in Sources */,
 				496632901F9809EC00AD11A2 /* main.m in Sources */,
 				496632821F9809EC00AD11A2 /* AppDelegate.m in Sources */,
 			);
