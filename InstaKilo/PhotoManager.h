@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong, readonly) NSArray<Photo *> *photosArray;
 
+- (NSArray<Photo *> *)getPhotosForLocation:(PhotoLocations)location;
+- (NSArray<Photo *> *)getPhotosForCategory:(PhotoCategories)category;
 - (void)addAquariumPhotos;
 
 @end

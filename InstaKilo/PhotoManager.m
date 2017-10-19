@@ -33,8 +33,27 @@
 
 -(void)addAquariumPhotos
 {
-    for (NSUInteger uniqueID = 1; uniqueID < 40; uniqueID++) {
+    for (NSUInteger uniqueID = 0; uniqueID < 39; uniqueID++) {
         [self addPhotoWithID:uniqueID];
+    }
+    
+    NSArray<NSNumber *> *indoorPhotos = @[@1, @2, @3];
+    
+    [self addLocation:Inside toPhotos:indoorPhotos];
+    
+    NSLog(@"%@", [self getPhotosForLocation:Inside]);
+}
+
+-(void)addLocation:(PhotoLocations)location toPhotos:(NSArray<NSNumber *> *)list
+{
+    for (NSNumber *photoNumber in list) {
+        [self.photosArray objectAtIndex:[photoNumber unsignedIntegerValue]].location = location;
+    }
+}
+-(void)addCategory:(PhotoCategories)category toPhotos:(NSArray<NSNumber *> *)list
+{
+    for (NSNumber *photoNumber in list) {
+        [self.photosArray objectAtIndex:[photoNumber unsignedIntegerValue]].category = category;
     }
 }
 
@@ -42,5 +61,29 @@
 {
     return self.internalPhotosArray;
 }
+
+-(NSArray<Photo *> *)getPhotosForCategory:(PhotoCategories)category
+{
+    NSMutableArray<Photo *> *categoryPhotos = [NSMutableArray new];
+    for (Photo *curPhoto in self.photosArray) {
+        if (curPhoto.category == category) {
+            [categoryPhotos addObject:curPhoto];
+        }
+    }
+    return categoryPhotos;
+}
+
+-(NSArray<Photo *> *)getPhotosForLocation:(PhotoLocations)location
+{
+    NSMutableArray<Photo *> *locationPhotos = [NSMutableArray new];
+    for (Photo *curPhoto in self.photosArray) {
+        if (curPhoto.location == location) {
+            [locationPhotos addObject:curPhoto];
+        }
+    }
+    return locationPhotos;
+}
+
+
 
 @end
