@@ -10,171 +10,81 @@
 #import "PhotoManager.h"
 #import "PhotoCollectionViewCell.h"
 #import "HeaderCollectionReusableView.h"
+#import "PhotoLayout.h"
 
 
 
 @interface PhotoCollectionViewController ()
 
 @property (nonatomic, strong) PhotoManager *photoManager;
-@property (nonatomic, strong) UICollectionViewFlowLayout *defaultLayout;
 @property (nonatomic, assign) PhotoSortOptions currentPhotoSort;
 - (IBAction)photoSortChanged:(UISegmentedControl *)sender;
+@property (nonatomic, strong) PhotoLayout *portraitLayout;
+@property (nonatomic, strong) PhotoLayout *landscapeLayout;
 
 @end
 
 @implementation PhotoCollectionViewController
 
-static NSString * const reuseIdentifier = @"PhotoCell";
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self doInitialSetup];
+    [self listenForOrientationChanges];
+}
+
+- (void)doInitialSetup {
     self.photoManager = [PhotoManager new];
-    [self.photoManager addAquariumPhotos];
-    
+    [self.photoManager addSamplePhotos];
     self.currentPhotoSort = Default;
-    
-    
-    [self setupLayout];
-    self.collectionView.collectionViewLayout = self.defaultLayout;
+    self.portraitLayout = [[PhotoLayout alloc] initWithPhotosPerRow:3];
+    self.landscapeLayout = [[PhotoLayout alloc] initWithPhotosPerRow:6];
+    self.collectionView.collectionViewLayout = self.portraitLayout;
 }
 
-- (void)setupLayout
-{
-    self.defaultLayout = [UICollectionViewFlowLayout new];
-    
-    CGFloat margin = 0;
-    NSInteger imagesPerRow = 3;
-    CGFloat width = (self.view.frame.size.width / imagesPerRow) - 2 * margin;
-    
-    self.defaultLayout.itemSize = CGSizeMake(width, width);
-    self.defaultLayout.minimumInteritemSpacing = margin;
-    self.defaultLayout.minimumLineSpacing = margin * 2;
-   
-    self.defaultLayout.headerReferenceSize = CGSizeMake(self.view.frame.size.width, width / 4);
-
-    self.defaultLayout.sectionHeadersPinToVisibleBounds = YES;
-    
-    self.defaultLayout.sectionInset = UIEdgeInsetsMake(0, 0, width / 2, 0);
-    
+- (void)listenForOrientationChanges {
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(orientationChanged:)
+     name:UIDeviceOrientationDidChangeNotification
+     object:[UIDevice currentDevice]];
 }
+
+-(void)orientationChanged:(NSNotification *)notification {
+    BOOL isDevicePortrait = (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation));
+    self.collectionView.collectionViewLayout = isDevicePortrait ? self.portraitLayout : self.landscapeLayout;
+}
+
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    switch (self.currentPhotoSort) {
-        case Default:
-            return 1;
-        case Location:
-            return [self.photoManager numberOfLocations];
-        case Category:
-            return [self.photoManager numberOfCategories];
-    }
+    return [self.photoManager numberOfSectionsInSort:self.currentPhotoSort];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    switch (self.currentPhotoSort) {
-        case Default:
-            return self.photoManager.photosArray.count;
-        case Location:
-            return [self.photoManager getPhotosForLocation:section].count;
-        case Category:
-            return [self.photoManager getPhotosForCategory:section].count;
-    }
+    return [self.photoManager numberOfItemsInSection:section withSort:self.currentPhotoSort];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
-    UIImage *imageToAdd;
-    
-    switch (self.currentPhotoSort) {
-        case Default:
-            imageToAdd = self.photoManager.photosArray[indexPath.row].image;
-            break;
-        case Location:
-            imageToAdd = [[self.photoManager getPhotosForLocation:indexPath.section] objectAtIndex:indexPath.row].image;
-            break;
-        case Category:
-            imageToAdd = [[self.photoManager getPhotosForCategory:indexPath.section] objectAtIndex:indexPath.row].image;
-            break;
-    }
-    
-    cell.cellImageView.image = imageToAdd;
-    
+    PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    cell.cellImageView.image = [self.photoManager getImageForPhotoIndex:indexPath.item
+                                                              inSection:indexPath.section
+                                                               withSort:self.currentPhotoSort];
     return cell;
 }
 
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
-           viewForSupplementaryElementOfKind:(NSString *)kind
-                                 atIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        HeaderCollectionReusableView *headerView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                           withReuseIdentifier:@"MyHeaderView"
-                                                                                  forIndexPath:indexPath];
-        
-        
-        NSString *sectionTitle;
-        
-        switch (self.currentPhotoSort) {
-            case Default:
-                sectionTitle = @"All Photos";
-                break;
-            case Location: {
-                
-                PhotoLocations location = indexPath.section;
-                switch (location) {
-                  
-                    case Inside:
-                        sectionTitle = @"Inside";
-                        break;
-                    case Outside:
-                        sectionTitle = @"Outside";
-                        break;
-                }
-                break;
-            }
-            case Category: {
-                PhotoCategories category = indexPath.section;
-                switch (category) {
-                    
-                    case Fish:
-                        sectionTitle = @"Fish";
-                        break;
-                    case Mammals:
-                        sectionTitle = @"Mammals";
-                        break;
-                    case Birds:
-                        sectionTitle = @"Birds";
-                        break;
-                    case Amphibians:
-                        sectionTitle = @"Amphibians";
-                        break;
-                    case Reptiles:
-                        sectionTitle = @"Reptiles";
-                        break;
-                    case Invertebrates:
-                        sectionTitle = @"Invertebrates";
-                        break;
-                    case Art:
-                        sectionTitle = @"Art";
-                        break;
-                }
-                break;
-            }
-        }
-        
-        headerView.headerLabel.text = sectionTitle;
+        HeaderCollectionReusableView *headerView =
+        [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                withReuseIdentifier:@"MyHeaderView"
+                                                       forIndexPath:indexPath];
+        headerView.headerLabel.text = [self.photoManager getTitleForSection:indexPath.section withSort:self.currentPhotoSort];
         return headerView;
     }
-    
     else {
         return nil;
     }
 }
-
-
-
 
 - (IBAction)photoSortChanged:(UISegmentedControl *)sender {
     self.currentPhotoSort = sender.selectedSegmentIndex;

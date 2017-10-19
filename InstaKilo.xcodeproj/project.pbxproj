@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4923F69D1F996A7300F72E79 /* PhotoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4923F69C1F996A7300F72E79 /* PhotoLayout.m */; };
 		496632821F9809EC00AD11A2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 496632811F9809EC00AD11A2 /* AppDelegate.m */; };
 		496632881F9809EC00AD11A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 496632861F9809EC00AD11A2 /* Main.storyboard */; };
 		4966328A1F9809EC00AD11A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 496632891F9809EC00AD11A2 /* Assets.xcassets */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4923F69B1F996A7300F72E79 /* PhotoLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoLayout.h; sourceTree = "<group>"; };
+		4923F69C1F996A7300F72E79 /* PhotoLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoLayout.m; sourceTree = "<group>"; };
 		4966327D1F9809EC00AD11A2 /* InstaKilo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaKilo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		496632801F9809EC00AD11A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		496632811F9809EC00AD11A2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -79,6 +82,8 @@
 				496632A01F98243E00AD11A2 /* PhotoCollectionViewCell.m */,
 				4966329C1F98200600AD11A2 /* PhotoCollectionViewController.h */,
 				4966329D1F98200600AD11A2 /* PhotoCollectionViewController.m */,
+				4923F69B1F996A7300F72E79 /* PhotoLayout.h */,
+				4923F69C1F996A7300F72E79 /* PhotoLayout.m */,
 				496632961F980BEA00AD11A2 /* Photo.h */,
 				496632971F980BEA00AD11A2 /* Photo.m */,
 				496632991F980F8500AD11A2 /* PhotoManager.h */,
@@ -162,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4923F69D1F996A7300F72E79 /* PhotoLayout.m in Sources */,
 				496632981F980BEA00AD11A2 /* Photo.m in Sources */,
 				496632A61F98437400AD11A2 /* HeaderCollectionReusableView.m in Sources */,
 				496632A11F98243E00AD11A2 /* PhotoCollectionViewCell.m in Sources */,

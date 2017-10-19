@@ -10,7 +10,9 @@
 
 @interface PhotoManager ()
 
-@property (nonatomic, strong) NSMutableArray<Photo *> *internalPhotosArray;
+@property (nonatomic, strong) NSMutableArray<Photo *> *photosArray;
+@property (nonatomic, assign) NSUInteger numberOfCategories;
+@property (nonatomic, assign) NSUInteger numberOfLocations;
 
 @end
 
@@ -20,20 +22,130 @@
 {
     self = [super init];
     if (self) {
-        _internalPhotosArray = [NSMutableArray new];
+        _photosArray = [NSMutableArray new];
         _numberOfLocations = 2;
-        _numberOfCategories = 6;
+        _numberOfCategories = 6; //this is intentionally 6 to exclude the Art photo
     }
     return self;
 }
 
+
+# pragma mark - Photo Adding and Editing Methods
+
 - (void)addPhotoWithID:(NSUInteger)uniqueID
 {
     Photo *newPhoto = [[Photo alloc] initWithID:uniqueID];
-    [self.internalPhotosArray addObject:newPhoto];
+    [self.photosArray addObject:newPhoto];
 }
 
--(void)addAquariumPhotos
+-(void)addLocation:(PhotoLocations)location toPhotos:(NSArray<NSNumber *> *)list
+{
+    for (NSNumber *photoNumber in list) {
+        [self.photosArray objectAtIndex:[photoNumber unsignedIntegerValue]].location = location;
+    }
+}
+
+-(void)addCategory:(PhotoCategories)category toPhotos:(NSArray<NSNumber *> *)list
+{
+    for (NSNumber *photoNumber in list) {
+        [self.photosArray objectAtIndex:[photoNumber unsignedIntegerValue]].category = category;
+    }
+}
+
+
+
+# pragma mark - External Methods
+
+- (UIImage *)getImageForPhotoIndex:(NSInteger)index inSection:(NSInteger)section withSort:(PhotoSortOptions)sort {
+    return [[self getPhotosForSection:section withSort:sort] objectAtIndex:index].image;
+}
+
+-(NSString *)getTitleForSection:(NSInteger)section withSort:(PhotoSortOptions)sort {
+    switch (sort) {
+        case Default:
+            return @"All Photos";
+        case Location:
+            return [self getLocationName:section];
+        case Category:
+            return [self getCategoryName:section];
+    }
+}
+
+-(NSInteger)numberOfSectionsInSort:(PhotoSortOptions)sort {
+    switch (sort) {
+        case Default:
+            return 1;
+        case Location:
+            return self.numberOfLocations;
+        case Category:
+            return self.numberOfCategories;
+    }
+}
+
+-(NSInteger)numberOfItemsInSection:(NSInteger)section withSort:(PhotoSortOptions)sort {
+    return [self getPhotosForSection:section withSort:sort].count;
+}
+
+
+# pragma mark - Internal Methods
+
+
+-(NSArray<Photo *> *)getPhotosForSection:(NSInteger)section withSort:(PhotoSortOptions)sort
+{
+    if (sort == Default) {
+        return self.photosArray;
+    }
+    
+    NSMutableArray<Photo *> *sectionPhotos = [NSMutableArray new];
+    for (Photo *curPhoto in self.photosArray) {
+        switch (sort) {
+            case Location:
+                if (curPhoto.location == section)
+                    [sectionPhotos addObject:curPhoto];
+                break;
+            case Category:
+                if (curPhoto.category == section)
+                    [sectionPhotos addObject:curPhoto];
+                break;
+            default:
+                break;
+        }
+    }
+    
+    return sectionPhotos;
+}
+
+-(NSString *)getLocationName:(PhotoLocations)location
+{
+    switch (location) {
+        case Inside:
+            return @"Inside";
+        case Outside:
+            return @"Outside";
+    }
+}
+
+-(NSString *)getCategoryName:(PhotoCategories)category
+{
+    switch (category) {
+        case Fish:
+            return @"Fish";
+        case Mammals:
+            return @"Mammals";
+        case Birds:
+            return @"Birds";
+        case Amphibians:
+            return @"Amphibians";
+        case Reptiles:
+            return @"Reptiles";
+        case Invertebrates:
+            return @"Invertebrates";
+        case Art:
+            return @"Art";
+    }
+}
+
+-(void)addSamplePhotos
 {
     for (NSUInteger uniqueID = 0; uniqueID < 39; uniqueID++) {
         [self addPhotoWithID:uniqueID];
@@ -49,58 +161,13 @@
     NSArray<NSNumber *> *reptiles = @[@34];
     NSArray<NSNumber *> *invertebrates = @[@5, @8, @11, @12, @13, @14, @35, @36];
     NSArray<NSNumber *> *art = @[@0];
-
+    
     [self addCategory:Mammals toPhotos:mammals];
     [self addCategory:Birds toPhotos:birds];
     [self addCategory:Amphibians toPhotos:amphibians];
     [self addCategory:Reptiles toPhotos:reptiles];
     [self addCategory:Invertebrates toPhotos:invertebrates];
     [self addCategory:Art toPhotos:art];
-
 }
-
-
-
--(void)addLocation:(PhotoLocations)location toPhotos:(NSArray<NSNumber *> *)list
-{
-    for (NSNumber *photoNumber in list) {
-        [self.photosArray objectAtIndex:[photoNumber unsignedIntegerValue]].location = location;
-    }
-}
--(void)addCategory:(PhotoCategories)category toPhotos:(NSArray<NSNumber *> *)list
-{
-    for (NSNumber *photoNumber in list) {
-        [self.photosArray objectAtIndex:[photoNumber unsignedIntegerValue]].category = category;
-    }
-}
-
--(NSArray<Photo *> *)photosArray
-{
-    return self.internalPhotosArray;
-}
-
--(NSArray<Photo *> *)getPhotosForCategory:(PhotoCategories)category
-{
-    NSMutableArray<Photo *> *categoryPhotos = [NSMutableArray new];
-    for (Photo *curPhoto in self.photosArray) {
-        if (curPhoto.category == category) {
-            [categoryPhotos addObject:curPhoto];
-        }
-    }
-    return categoryPhotos;
-}
-
--(NSArray<Photo *> *)getPhotosForLocation:(PhotoLocations)location
-{
-    NSMutableArray<Photo *> *locationPhotos = [NSMutableArray new];
-    for (Photo *curPhoto in self.photosArray) {
-        if (curPhoto.location == location) {
-            [locationPhotos addObject:curPhoto];
-        }
-    }
-    return locationPhotos;
-}
-
-
 
 @end

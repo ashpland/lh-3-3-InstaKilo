@@ -9,15 +9,25 @@
 #import <Foundation/Foundation.h>
 #import "Photo.h"
 
+typedef NS_ENUM(NSUInteger, PhotoSortOptions) {
+    Default,
+    Location,
+    Category,
+};
+
+
 @interface PhotoManager : NSObject
 
-@property (nonatomic, strong, readonly) NSArray<Photo *> *photosArray;
-@property (nonatomic, assign) NSUInteger numberOfCategories;
-@property (nonatomic, assign) NSUInteger numberOfLocations;
 
 
-- (NSArray<Photo *> *)getPhotosForLocation:(PhotoLocations)location;
-- (NSArray<Photo *> *)getPhotosForCategory:(PhotoCategories)category;
-- (void)addAquariumPhotos;
+- (UIImage *)getImageForPhotoIndex:(NSInteger)index inSection:(NSInteger)section withSort:(PhotoSortOptions)sort;
+- (NSString *)getTitleForSection:(NSInteger)section withSort:(PhotoSortOptions)sort;
+- (NSInteger)numberOfSectionsInSort:(PhotoSortOptions)sort;
+- (NSInteger)numberOfItemsInSection:(NSInteger)section withSort:(PhotoSortOptions)sort;
+
+
+
+
+- (void)addSamplePhotos;
 
 @end
